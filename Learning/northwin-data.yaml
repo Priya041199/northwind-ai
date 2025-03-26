@@ -9,7 +9,7 @@ metadata:
     executables.ai.sap.com/name: "Northwind Supplier Data"
   labels:
     scenarios.ai.sap.com/id: "Supplier-Northwind-data"
-    ai.sap.com/version: "1.0"
+    ai.sap.com/version: "2.0"
 spec:
   imagePullSecrets:
   - name: aitutorialrepo # your docker registry secret
@@ -21,7 +21,7 @@ spec:
         template: mycodeblock1
   - name: mycodeblock1
     container:
-      image: docker.io/priya049/northwind-data:01 # Your docker image name
+      image: docker.io/priya049/northwind-data:02 # Your docker image name
       command: ["/bin/sh", "-c"]
       args:
         - "python /app/src/northwind-data.py"
