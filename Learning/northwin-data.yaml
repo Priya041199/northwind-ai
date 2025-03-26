@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: WorkflowTemplate
+metadata:
+  name: fetch-northwind-pipeline # executable id, must be unique across all your workflows (YAML files), please modify this to any value (e.g. code-pipeline-12345) if you are not the only user of your SAP AI Core instance.
+  annotations:
+    scenarios.ai.sap.com/description: "Tutorial for fetch supplier data"
+    scenarios.ai.sap.com/name: "Fetch Supplier Data"
+    executables.ai.sap.com/description: "Get Northwind Supplier Data"
+    executables.ai.sap.com/name: "Northwind Supplier Data"
+  labels:
+    scenarios.ai.sap.com/id: "Calculation-Code"
+    ai.sap.com/version: "1.0"
+spec:
+  imagePullSecrets:
+  - name: aitutorialrepo # your docker registry secret
+  entrypoint: mypipeline
+  templates:
+  - name: mypipeline
+    steps:
+    - - name: mypredictor
+        template: mycodeblock1
+  - name: mycodeblock1
+    container:
+      image: docker.io/priya049/northwind-data:01 # Your docker image name
+      command: ["/bin/sh", "-c"]
+      args:
+        - "python /app/src/northwind-data.py"
